@@ -14,13 +14,13 @@ class Product extends Component {
             <ProductWrapper className="col-9 mx-auto col-md-6 col-lg-3 my-3">
                 {product.company}
                 <div className="card">
-                    <div className="img-container p-5" onClick={(id) => getById(product.id)}>
+                    <div className="img-container p-5" onClick={() => getById(product.id)}>
                         <Link to={'/details'}>
                             <img src={product.img} alt="product" className="card-img-top" />
                         </Link>
                         <button className="cart-btn"
                             disabled={product.inCart ? true : false}
-                            onClick={(id) => addToCart(product.id)}>
+                            onClick={() => addToCart(product.id)}>
                             {product.inCart === true
                                 ?
                                 (

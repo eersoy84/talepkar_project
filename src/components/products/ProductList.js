@@ -1,10 +1,14 @@
 import Product from './Product';
 import Title from '../layout/Title'
 import { connect } from 'react-redux'
+import { getAll } from '../../store/actions/cartActions'
 
 import React, { Component } from 'react'
 
 class ProductList extends Component {
+    // componentDidMount() {
+    //      this.props.getAll();
+    // }
     render() {
         const { products } = this.props
         return (
@@ -29,13 +33,16 @@ class ProductList extends Component {
     }
 }
 
+
 const mapStateToProps = (state) => {
-    console.log(state,"mapStateToProps -- Product List")
+    console.log(state, "mapStateToProps -- Product List")
     return {
         products: state.cartReducer.products
     }
 }
-
+// const mapDispatchToProps = {
+//     getAll
+// };
 
 
 export default connect(mapStateToProps)(ProductList)

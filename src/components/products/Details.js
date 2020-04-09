@@ -66,10 +66,10 @@ class Details extends Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log("mapStateToPropsInfofrom details",state)
+    console.log("mapStateToPropsInfofrom details", state)
     return {
 
-        product: state.cartReducer.singleProduct,
+        product: state.cartReducer.selectedProduct,
     }
 }
 const mapDispatchToProps = {

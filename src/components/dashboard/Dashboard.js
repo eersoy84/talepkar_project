@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 
 class Dashboard extends Component {
     render() {
-        const { products } = this.props;
+        const { products,getAll } = this.props;
         return (
             <div className="container-fluid">
                 <div className="row">
