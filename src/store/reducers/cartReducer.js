@@ -3,11 +3,11 @@ import { storeProducts, detailProduct } from '../../data'
 const initState = {
     products: [...storeProducts],
     selectedProduct: null,
-    cart: storeProducts,
+    cart: [],
     modalOpen: false,
     modalProduct: null,
     cartSubTotal: 0,
-    cartTax: 0,
+    cartTax: 0.1,
     cartTotal: 0
 
 };
@@ -34,11 +34,14 @@ const cartReducer = (state = initState, action) => {
             product.count = 1;
             const price = product.price;
             product.total = price;
+            const subTotal = state.cartSubTotal + product.total
             return {
                 ...state,
                 products: tmp,
                 cart: [...state.cart, product],
-                selectedProduct: product
+                selectedProduct: product,
+                cartSubTotal: subTotal,
+                cartTotal: subTotal * (1 + state.cartTax)
             };
         }
         case ACTION_TYPES.GET_BY_ID: {
@@ -50,14 +53,14 @@ const cartReducer = (state = initState, action) => {
                 selectedProduct: single
             }
         }
-        case ACTION_TYPES.GET_ALL:{
+        case ACTION_TYPES.GET_ALL: {
 
             return {
                 ...state,
                 products: setProducts(state.products)
             }
         }
-        case ACTION_TYPES.OPEN_MODAL:{
+        case ACTION_TYPES.OPEN_MODAL: {
 
             const tmp = setProducts(state.products);
             const single = getItem(tmp, action.id);
@@ -67,27 +70,78 @@ const cartReducer = (state = initState, action) => {
                 modalOpen: !state.modalOpen
             }
         }
-        case ACTION_TYPES.CLOSE_MODAL:{
+        case ACTION_TYPES.CLOSE_MODAL: {
 
             return {
                 ...state,
                 modalOpen: !state.modalOpen
             }
         }
-        case ACTION_TYPES.INCREMENT:{
+        case ACTION_TYPES.INCREMENT: {
 
-            console.log("clear cart")
+            const newCart = setProducts(state.cart);
+            const index = newCart.indexOf(getItem(newCart, action.id))
+            var product = newCart[index];
+            product.count += 1;
+            product.total = product.price * product.count;
+            const subTotal = state.cartSubTotal + product.price
+            return {
+                ...state,
+                cart: newCart,
+                cartSubTotal: subTotal,
+                cartTotal: subTotal * (1 + state.cartTax)
+            }
         }
 
-        case ACTION_TYPES.DECREMENT:{
-            console.log("clear cart")
+        case ACTION_TYPES.DECREMENT: {
+            const newCart = setProducts(state.cart);
+            const index = newCart.indexOf(getItem(newCart, action.id))
+            var product = newCart[index];
+            if (product.count > 1) {
+                product.count -= 1;
+                product.total = product.price * product.count;
+                const subTotal = state.cartSubTotal - product.price
+                return {
+                    ...state,
+                    cart: newCart,
+                    cartSubTotal: subTotal,
+                    cartTotal: subTotal * (1 + state.cartTax)
+                }
+            }
+            else {
+                return { ...state }
+            }
         }
 
-        case ACTION_TYPES.REMOVE_ITEM:
-            console.log("clear cart")
+        case ACTION_TYPES.REMOVE_ITEM: {
 
+            const newCart = setProducts(state.cart);
+            const cartIndex = newCart.indexOf(getItem(newCart, action.id))
+            const total = newCart[cartIndex].total;
+            newCart.splice(cartIndex, 1);
+            const tmp = setProducts(state.products);
+            const index = tmp.indexOf(getItem(tmp, action.id))
+            var product = tmp[index];
+            product.inCart = false;
+            product.count = 0;
+            product.total = 0;
+            const subTotal = state.cartSubTotal - total
+            return {
+                ...state,
+                products: tmp,
+                cart: newCart,
+                cartSubTotal: subTotal,
+                cartTotal: subTotal * (1 + state.cartTax)
+            };
+        }
         case ACTION_TYPES.CLEAR_CART:
-            console.log("clear cart")
+            return {
+                ...state,
+                cart: [],
+                products: storeProducts,
+                cartSubTotal: 0,
+                cartTotal: 0
+            }
 
         default:
             return state;

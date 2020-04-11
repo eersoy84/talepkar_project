@@ -1,9 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { increment, decrement, removeItem, clearCart } from '../../store/actions/cartActions'
+import { increment, decrement, removeItem } from '../../store/actions/cartActions'
 
-const CartItem = ({ cartItem }) => {
-    console.log(cartItem)
+const CartItem = ({ cartItem, increment, decrement , removeItem }) => {
     const { id, title, img, price, total, count } = cartItem
     return (
         <div className="row my-5 text-capitalize text-center">
@@ -39,7 +38,7 @@ const CartItem = ({ cartItem }) => {
             </div>
 
             <div className="col-10 mx-auto col-lg-2">
-                <div className="cart-icon" onClick={()=>removeItem(id)}>
+                <div className="cart-icon" onClick={() => removeItem(id)}>
                     <i className="fas fa-trash"></i>
                 </div>
             </div>
@@ -58,7 +57,6 @@ const CartItem = ({ cartItem }) => {
 const mapDispatchToProps = {
     increment,
     decrement,
-    removeItem,
-    clearCart
+    removeItem
 }
 export default connect(null, mapDispatchToProps)(CartItem)

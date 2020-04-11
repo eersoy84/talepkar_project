@@ -22,7 +22,7 @@ class Product extends Component {
                             disabled={product.inCart ? true : false}
                             onClick={() => {
                                 addToCart(product.id)
-                                openModal(product.id)
+                                // openModal(product.id)
                             }}>
                             {product.inCart === true
                                 ?

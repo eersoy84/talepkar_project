@@ -10,6 +10,7 @@ import CartTotal from './CartTotal'
 class Cart extends Component {
     render() {
         const { cart, cartSubTotal, cartTax, cartTotal } = this.props
+        console.log(cartSubTotal)
         if (cart.length > 0) {
             return (
                 <section>

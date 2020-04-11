@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 
 export const CartTotal = (props) => {
     const { cartTotal, cartTax, cartSubTotal, clearCart } = props
-    console.log(props)
+    console.log(cartSubTotal)
     return (
         <div>
             <React.Fragment>
