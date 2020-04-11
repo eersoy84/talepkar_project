@@ -24,7 +24,7 @@ export const CartTotal = (props) => {
                             </Link>
                             <h5>
                                 <span className="text-title">
-                                    subtotal: <strong>$ {cartSubTotal}</strong>
+                                    subtotal: <strong>$ {cartSubTotal.toFixed(2)}</strong>
                                 </span>
                             </h5>
 
@@ -36,7 +36,9 @@ export const CartTotal = (props) => {
 
                             <h5>
                                 <span className="text-title">
-                                    total: <strong>$ {cartTotal}</strong>
+                                    <span style={{color:'red'}}>
+                                        total: <strong>$ {cartTotal.toFixed(2)}</strong>
+                                    </span>
                                 </span>
                             </h5>
                         </div>

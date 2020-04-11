@@ -5,8 +5,10 @@ import SignedOutLinks from './SignedOutLinks';
 import logo from '../../logo.svg';
 import styled from 'styled-components';
 import { ButtonContainer } from './Button';
+import { connect } from 'react-redux'
 
-const Navbar = () => {
+
+const Navbar = ({ number }) => {
     return (
         // <nav className="nav-wrapper grey darken-3">
         //     <div className="container">
@@ -31,7 +33,7 @@ const Navbar = () => {
                     <span className="mr-2">
                         <i className="fas fa-cart-plus" />
                     </span>
-                        my cart
+                    <sup><span class="badge">{number !== 0 ? number : null}</span></sup>
                 </ButtonContainer>
             </Link>
 
@@ -39,8 +41,13 @@ const Navbar = () => {
 
     )
 }
+const mapStateToProps = (state) => {
+    return {
+        number: state.cartReducer.cart.length,
+    }
+}
 const NavWrapper = styled.nav
-`
+    `
 background:var(--mainBlue);
 .nav-link{
     color:var(--mainWhite) !important;
@@ -52,5 +59,5 @@ background:var(--mainBlue);
 `
 
 
-export default Navbar
+export default connect(mapStateToProps)(Navbar)
 
