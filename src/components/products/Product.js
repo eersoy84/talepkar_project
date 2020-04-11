@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { addToCart,getById } from '../../store/actions/cartActions'
+import { addToCart, getById, openModal } from '../../store/actions/cartActions'
 import { connect } from 'react-redux'
 
 class Product extends Component {
 
 
     render() {
-        const { product, getById, addToCart } = this.props
+        const { product, getById, addToCart, openModal } = this.props
         return (
             <ProductWrapper className="col-9 mx-auto col-md-6 col-lg-3 my-3">
                 {product.company}
@@ -20,7 +20,10 @@ class Product extends Component {
                         </Link>
                         <button className="cart-btn"
                             disabled={product.inCart ? true : false}
-                            onClick={() => addToCart(product.id)}>
+                            onClick={() => {
+                                addToCart(product.id)
+                                openModal(product.id)
+                            }}>
                             {product.inCart === true
                                 ?
                                 (
@@ -49,7 +52,8 @@ class Product extends Component {
 }
 const mapDispatchToProps = {
     getById,
-    addToCart
+    addToCart,
+    openModal
 }
 
 Product.propTypes = {

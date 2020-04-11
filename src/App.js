@@ -9,8 +9,8 @@ import SignUp from './components/auth/SignUp'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Default from './components/Default'
-import Cart from './components/products/Cart'
-import ProductList from './components/products/ProductList'
+import Cart from './components/cart'
+import Modal from './components/products/Modal'
 
 
 function App() {
@@ -26,9 +26,8 @@ function App() {
           <Route path='/signup' component={SignUp} />
           <Route path='/cart' component={Cart} />
           <Route component={Default} />
-          {/* <Redirect exact from='/details' to='/'></Redirect> */}
-
         </Switch>
+        <Modal/>
       </div>
 
     </React.Fragment>

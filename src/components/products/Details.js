@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from "react-router-dom";
 import { ButtonContainer } from '../layout/Button'
 import { connect } from 'react-redux'
-import { addToCart } from '../../store/actions/cartActions'
+import { addToCart,openModal } from '../../store/actions/cartActions'
 
 class Details extends Component {
     render() {
@@ -50,8 +50,10 @@ class Details extends Component {
                                 <ButtonContainer
                                     cart
                                     disabled={product.inCart ? true : false}
-                                    onClick={() => addToCart(product.id)}
-                                >
+                                    onClick={() => {
+                                        addToCart(product.id)
+                                        openModal(product.id)
+                                    }}>
                                     {product.inCart ? "inCart" : "add to cart"}
                                 </ButtonContainer>
                             </div>
